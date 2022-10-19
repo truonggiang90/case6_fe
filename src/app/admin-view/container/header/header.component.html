@@ -1,0 +1,35 @@
+<div class="header" >
+  <mat-toolbar-row>
+    <span class="spacer"></span>
+    <mat-form-field class="form-field">
+      <mat-label>Search Something</mat-label>
+      <input matInput placeholder="SearchInput" value="">
+      <button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
+        <mat-icon fontIcon="close">close</mat-icon>
+      </button>
+    </mat-form-field>
+    <button mat-mini-fab  class="button-search">
+      <mat-icon fontIcon="search"></mat-icon>
+    </button>
+    <span class="spacer"></span>
+    <mat-chip-avatar></mat-chip-avatar>
+    <button class="avatar" mat-icon-button  [matMenuTriggerFor]="belowMenu">
+      <img class="avatar" id="avatar" alt="Photo of a Shiba Inu">
+    </button>
+    <mat-menu #belowMenu="matMenu" yPosition="below">
+      <mat-label  >Account</mat-label>
+      <mat-divider></mat-divider>
+      <button mat-menu-item>
+        <img src="../../../../assets/icon/comments.png" class="icon">message
+      </button>
+
+      <button mat-menu-item>Item 2</button>
+      <mat-divider></mat-divider>
+      <button mat-menu-item (click)="logout()">
+        <img src="../../../../assets/icon/turn-off.png" class="icon">
+        Log out</button>
+    </mat-menu>
+  </mat-toolbar-row>
+</div>
+
+

@@ -1,0 +1,28 @@
+.post-author a,
+.post-date a,
+.post-favourite a,
+.post-comments a,
+.post-share a {
+  color: #b5aec4;
+  font-size: 14px;
+}
+
+.post-author a:hover,
+.post-date a:hover,
+.post-favourite a:hover,
+.post-comments a:hover,
+.post-share a:hover {
+  color: #000;
+}
+
+.post-favourite a,
+.post-comments a {
+  margin-right: 15px;
+}
+a, a:hover, a:focus, a:active {
+  text-decoration: none;
+  -webkit-transition-duration: 500ms;
+  transition-duration: 500ms;
+  font-weight: 500;
+  outline: none;
+}

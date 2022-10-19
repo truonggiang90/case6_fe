@@ -1,0 +1,18 @@
+<div class="title">
+  <h2 >Category</h2>
+</div>
+<owl-carousel-o [options]="customOptions" (initialized)="getData($event)">
+  <ng-container *ngFor="let slide of categories">
+    <ng-template carouselSlide id="{{slide.id}}">
+
+      <div class="single_catagory">
+        <img src="{{slide.picture}}" alt="" style="border-radius: 10px">
+        <div class="catagory-title">
+          <a href="/home/category/{{slide.name}}/{{slide.id}}">
+            <h5>{{slide.name}}</h5>
+          </a>
+        </div>
+      </div>
+    </ng-template>
+  </ng-container>
+</owl-carousel-o>

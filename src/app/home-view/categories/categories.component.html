@@ -1,0 +1,56 @@
+<main id="tt-pageContent">
+  <div class="tt-custom-mobile-indent container">
+    <div class="tt-categories-title">
+      <div class="tt-title">Categories</div>
+    </div>
+    <div class="tt-categories-list">
+      <div class="row">
+        <div class="col-md-6 col-lg-4" *ngFor="let element of categories">
+          <div class="tt-item" style="background: none">
+            <div [ngStyle]="{'background': 'url(' + element.picture + ') lightblue no-repeat center'
+        , 'background-size' : '100%'}" style="height: 240px;width: 407px;top: 32px;
+        left: 12px; position: absolute;opacity: 0.9;z-index: -1;border-radius: 15px">
+            </div>
+            <div class="tt-item-header">
+              <ul class="tt-list-badge">
+                <li><a routerLink="/home/category/{{element.name}}/{{element.id}}" style="text-decoration: none;text-shadow: 2px 4px 3px rgba(0,0,0,0.3);">
+                  <span class="tt-color05 tt-badge" *ngIf="element.name=='Music'">music</span>
+                  <span class="tt-color06 tt-badge" *ngIf="element.name=='Movie'">movie</span>
+                  <span class="tt-color04 tt-badge" *ngIf="element.name=='Pet'">pet</span>
+                  <span class="tt-color13 tt-badge" *ngIf="element.name=='Car'">car</span>
+                  <span class="tt-color09 tt-badge" *ngIf="element.name=='Game'">game</span>
+                  <span class="tt-color10 tt-badge" *ngIf="element.name=='Food'">food</span>
+                </a></li>
+              </ul>
+              <h6 class="tt-title"><a routerLink="/home/category/{{element.name}}/{{element.id}}"
+                                      style="text-decoration: none;font-size: larger;color: white;text-shadow: 2px 4px 3px rgba(0,0,0,0.5);" >
+                Blog - {{element.countBlog}}</a></h6>
+            </div>
+            <div class="tt-item-layout">
+              <div class="innerwrapper" style="color: white; text-shadow: 2px 4px 3px rgba(0,0,0,0.5);">
+                {{element.description}}
+              </div>
+              <div class="innerwrapper">
+                <h6 class="tt-title" style="color: white;text-shadow: 2px 4px 3px rgba(0,0,0,0.3);">Similar TAGS</h6>
+                <ul class="tt-list-badge content" style="width: 320px" >
+                  <li *ngFor="let tag of element.tagDTO"><a routerLink="/home/category/{{element.name}}/{{element.id}}/{{tag.id}}"  style="text-decoration: none">
+                    <span class="tt-badge " style="color: black" >{{tag.name}}</span></a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-12">
+          <div class="tt-row-btn">
+            <button type="button" class="btn-icon js-topiclist-showmore">
+              <svg class="tt-icon">
+                <use xlink:href="#icon-load_lore_icon"></use>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>

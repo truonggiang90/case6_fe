@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "uploadfile-4defc": {
+      "hosting": {
+        "case5": [
+          "uploadfile-4defc"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "uploadfile-4defc"
+  }
+}

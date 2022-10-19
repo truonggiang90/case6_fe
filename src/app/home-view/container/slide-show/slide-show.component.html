@@ -1,0 +1,37 @@
+<div class="section" id="carousel" style="margin: 100px 0px 100px 0px">
+  <owl-carousel-o [options]="customOptions" (initialized)="getData($event)">
+    <ng-container *ngFor="let slide of blogs ;index as i">
+      <ng-template carouselSlide id="{{slide.id}}"   *ngIf="i==0 ; else anotherSlide " >
+        <div class="slide item" style="width: 350px"  >
+          <div class="single_catagory">
+            <div >
+              <img src="{{slide.picture}}" alt="" style="width: 400px;height: 400px">
+            </div>
+            <div class="catagory-title">
+              <a routerLink="/home/blog/{{slide.id}}" style="text-shadow: 2px 4px 3px rgba(0,0,0,0.3);" matTooltip="{{slide.title}}">
+                <h3 class="content" style="width: 200px" >{{slide.title}}</h3>
+              </a>
+              <h6>{{this.pipe.transform(slide.createAt,"MMM d, y")}}</h6>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+      <ng-template carouselSlide id="{{slide.id}}"   #anotherSlide [width]="200">
+        <div class="slide item" style="width: 220px; ">
+          <div class="single_catagory">
+            <div  class="img-hover">
+              <img src="{{slide.picture}}" alt=""
+                   style="width: 250px;height: 400px;object-fit: cover;object-position: 50% 50% ;">
+            </div>
+            <div class="catagory-title">
+              <a routerLink="/home/blog/{{slide.id}}" style="text-shadow: 2px 4px 3px rgba(0,0,0,0.3);" matTooltip="{{slide.title}}">
+                <h3 class="content" style="width: 200px">{{slide.title}}</h3>
+              </a>
+              <h6>{{this.pipe.transform(slide.createAt,"MMM d, y")}}</h6>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+    </ng-container>
+  </owl-carousel-o>
+</div>

@@ -1,0 +1,59 @@
+.full-width-table {
+  width: 100%;
+}
+.grid-container {
+  margin: 40px;
+
+}
+.spacer {
+  flex: 1 1 auto;
+
+}
+.mat-elevation-z8{
+  background: #AAC4FF;
+  margin-top: 40px;
+  border-radius:10px ;
+}
+.toolbar{
+  background: none;
+}
+mat-form-field{
+
+  margin-right: 60px;
+}
+.avatarTable{
+  height: 30px;
+  width: 30px;
+}
+mat-form-field{
+  margin-left: 42px;
+}
+mat-icon{
+  height: 30px;
+  width: 30px;
+}
+.action{
+  justify-content: center;
+}
+td{
+
+}
+.verify{
+  background: #f8d7da;
+}
+.mat-header-cell{
+  font-size: 16px;
+  font-weight: 500;
+  color: rgba(0,0,0,255);
+}
+mat-paginator{
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+.button-banGroup{
+  margin-right: 60px;
+}
+img{
+  height: 24px;
+  width: 24px;
+}

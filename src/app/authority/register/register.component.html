@@ -1,0 +1,111 @@
+<div class="container-fluid" style="height: 100vh">
+  <div class="row justify-content-center">
+    <mat-card class="card" *ngIf="!isSuccessful; else  successful ">
+      <div class="row register-Logo">
+        <img src="./assets/icon/registerLogo.png">
+      </div>
+      <div class="register-form">
+        <form class="form row justify-content-center" [formGroup]="registerGroup" #heroForm="ngForm"
+              appPasswordMatchValidator>
+          <div class="alert alert-warning" *ngIf="heroForm.submitted && isSignUpFailed">
+            Signup failed!<br/>{{ errorMessage }}
+          </div>
+          <mat-form-field class="full-width" appearance="fill">
+            <mat-label>Email</mat-label>
+            <input type="email" matInput [formControl]="email" [errorStateMatcher]="matcherUsername"
+                   placeholder="Ex. pat@example.com" value="">
+            <mat-hint>Please enter a valid email address</mat-hint>
+            <mat-error *ngIf="email.hasError('email')&& !email.hasError('required')"></mat-error>
+            <mat-error *ngIf="email.hasError('minlength') && !email.hasError('required')">
+              Email must have at least {{minUsername}} characters
+            </mat-error>
+            <mat-error *ngIf="email.hasError('maxlength') && !email.hasError('required')">
+              Email must have {{maxUsername}} maximum characters
+            </mat-error>
+            <mat-error *ngIf="email.hasError('required')">
+              Email is <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field class="full-width" appearance="fill">
+            <mat-label>Username</mat-label>
+            <input type="text" matInput [formControl]="username" [errorStateMatcher]="matcherUsername"
+                   placeholder="Ex. pat@example.com" value="">
+            <mat-hint>Please enter a valid Username</mat-hint>
+            <mat-error *ngIf="username.hasError('minlength') && !username.hasError('required')">
+              Username must have at least {{minUsername}} characters
+            </mat-error>
+            <mat-error *ngIf="username.hasError('maxlength') && !username.hasError('required')">
+              Username must have {{maxUsername}} maximum characters
+            </mat-error>
+            <mat-error *ngIf="username.hasError('required')">
+              Username is <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field class="full-width" appearance="fill">
+            <mat-label>Enter your password</mat-label>
+            <input matInput [type]="hidePassword ? 'password' : 'text'" [formControl]="password"
+                   [errorStateMatcher]="matcherPassword">
+            <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword" [attr.aria-label]="'Hide password'"
+                    [attr.aria-pressed]="hidePassword">
+              <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+            <mat-error *ngIf="password.hasError('required')">Password is required</mat-error>
+            <mat-error *ngIf="password.hasError('maxlength')">Password must have {{maxPassword}} maximum characters
+            </mat-error>
+            <mat-error *ngIf="password.hasError('minlength')">Password must have at least {{minPassword}}characters
+            </mat-error>
+            <mat-error *ngIf="password.hasError('lowercase')&&!password.hasError('minlength')">Password must contain one
+              lowercase letter.
+            </mat-error>
+            <mat-error *ngIf="password.hasError('uppercase')&&!password.hasError('minlength')">Password must contain one
+              uppercase letter.
+            </mat-error>
+            <mat-error *ngIf="password.hasError('characters')&&!password.hasError('minlength')">Password must contain
+              one characters letter.
+            </mat-error>
+            <mat-error *ngIf="password.hasError('digital')&&!password.hasError('minlength')">Password must contain one
+              digital letter.
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field class="full-width" appearance="fill">
+            <mat-label>Enter your confirm password</mat-label>
+            <input matInput [type]="hideConfirmPassword ? 'password' : 'text'" [formControl]="confirmPassword"
+                   [errorStateMatcher]="matcherRePassword">
+
+            <button mat-icon-button matSuffix (click)="hideConfirmPassword = !hideConfirmPassword"
+                    [attr.aria-label]="'Hide password'"
+                    [attr.aria-pressed]="hideConfirmPassword">
+              <mat-icon>{{hideConfirmPassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+            <mat-error *ngIf="confirmPassword.hasError('required')">Password is required</mat-error>
+            <mat-error *ngIf="confirmPassword.hasError('minlength')">Password must have at least {{minPassword}}
+              characters
+            </mat-error>
+
+          </mat-form-field>
+          <div  style="height: 25px;">
+            <span class="cross-validation-error-message alert" *ngIf="registerGroup.errors?.['passwordMismatch']">Confirm-password does not match password</span>
+          </div>
+          <button class="button" mat-raised-button color="primary" (click)="register()" style="margin-top: 10px"
+                  [disabled]="matcherUsername.isErrorState(username,heroForm)||matcherPassword.isErrorState(password,heroForm)
+                  ||matcherRePassword.isErrorState(confirmPassword,heroForm)||matcherEmail.isErrorState(email,heroForm)">
+            Register
+          </button>
+        </form>
+        <div class="login-link">
+          <p>
+            Don't you have account?
+            <a href="/login">Sign In Here</a>
+          </p>
+        </div>
+      </div>
+
+    </mat-card>
+    <ng-template #successful>
+      <div class="alert alert-success row justify-content-center" style="margin: 10px">
+        Your registration is successful! We've sent you a verification mail to your email account.
+      </div>
+    </ng-template>
+
+  </div>
+</div>

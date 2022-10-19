@@ -1,0 +1,357 @@
+<main id="tt-pageContent" class="tt-offset-small">
+  <div class="tt-wrapper-section">
+    <div class="container">
+      <div class="tt-user-header">
+        <div class="tt-col-avatar">
+          <div class="tt-icon">
+            <img class="tt-icon" src="{{this.ava}}">
+          </div>
+        </div>
+        <div class="tt-col-title">
+          <div class="tt-title">
+            <a href="#"></a>
+          </div>
+        </div>
+        <div class="tt-col-btn" id="js-settings-btn">
+          <div class="tt-list-btn">
+            <a href="#" class="tt-btn-icon">
+              <svg class="tt-icon">
+                <use xlink:href="#icon-settings_fill"></use>
+              </svg>
+            </a>
+            <a href="#" class="btn btn-primary">Message</a>
+            <a href="#" class="btn btn-secondary">Follow</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="tt-tab-wrapper">
+      <mat-tab-group selectedIndex="{{selected}}" animationDuration="0" (selectedTabChange)="selectionChange($event)">
+        <mat-tab label="Blogs">
+          <div class="tt-topic-list">
+            <div class="tt-list-header">
+              <div class="tt-col-topic">Blog</div>
+              <div class="tt-col-category">Category</div>
+              <div class="tt-col-value hide-mobile">Likes</div>
+              <div class="tt-col-value hide-mobile">Replies</div>
+              <div class="tt-col-value hide-mobile">Status</div>
+              <div class="tt-col-value">Action</div>
+            </div>
+            <div class="tt-item" *ngFor="let element of blogs">
+              <div class="tt-col-avatar">
+                <img class="tt-icon" src="{{element.picture}}">
+              </div>
+              <div class="tt-col-description">
+                <h6 class="tt-title"><a routerLink="/home/blog/{{element.id}}">
+                  {{element.title}}
+                </a></h6>
+                <div class="row align-items-center no-gutters">
+                  <div class="col-11">
+                    <ul class="tt-list-badge">
+                      <li *ngFor="let tag of element.tag"><a href="#"><span
+                        class="tt-color01 tt-badge">{{tag.name}}</span></a></li>
+                    </ul>
+                  </div>
+                  <div class="col-1 ml-auto show-mobile">
+                    <div class="tt-value">1h</div>
+                  </div>
+                </div>
+              </div>
+              <div class="tt-col-category">
+                <span class="tt-color05 tt-badge" *ngIf="element.categoryName=='Music'">music</span>
+                <span class="tt-color06 tt-badge" *ngIf="element.categoryName=='Movie'">movie</span>
+                <span class="tt-color04 tt-badge" *ngIf="element.categoryName=='Pet'">pet</span>
+                <span class="tt-color13 tt-badge" *ngIf="element.categoryName=='Car'">car</span>
+                <span class="tt-color09 tt-badge" *ngIf="element.categoryName=='Game'">game</span>
+                <span class="tt-color10 tt-badge" *ngIf="element.categoryName=='Food'">food</span>
+              </div>
+              <div class="tt-col-value hide-mobile">{{element.countLike}}</div>
+              <div class="tt-col-value tt-color-select  hide-mobile">{{element.countComment}}</div>
+              <div class="tt-col-value hide-mobile">
+                <mat-icon *ngIf="element.status=='PENDING'" matTooltip="Pending">schedule</mat-icon>
+                <mat-icon *ngIf="element.status=='PUBLIC'" matTooltip="Public">groups</mat-icon>
+                <mat-icon *ngIf="element.status=='PRIVATE'" matTooltip="Private">lock</mat-icon>
+              </div>
+              <div class="tt-col-value hide-mobile">
+                <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+                  <mat-icon matTooltip="Edit Blog">edit</mat-icon>
+                </button>
+                <mat-menu #menu="matMenu">
+                  <button mat-menu-item [matMenuTriggerFor]="Status">
+                    <mat-icon>lock</mat-icon>
+                    <span>Edit audience</span>
+                  </button>
+                  <button mat-menu-item (click)="goToUpdateBlog(element.id)">
+                    <mat-icon>edit</mat-icon>
+                    <span>Edit blog</span>
+                  </button>
+                  <button mat-menu-item (click)="deleteBlog(element.id)">
+                    <mat-icon>delete_forever</mat-icon>
+                    <span>Delete blog</span>
+                  </button>
+                </mat-menu>
+                <mat-menu #Status="matMenu">
+                  <button mat-menu-item (click)="privateBlog(element.id)">
+                    <mat-icon>lock</mat-icon>
+                    <span>Private</span>
+                  </button>
+                  <button mat-menu-item  (click)="publicBlog(element.id)">
+                    <mat-icon>groups</mat-icon>
+                    <span>Public</span>
+                  </button>
+                </mat-menu>
+              </div>
+            </div>
+            <div class="tt-row-btn">
+              <button type="button" class="btn-icon js-topiclist-showmore">
+                <svg class="tt-icon">
+                  <use xlink:href="#icon-load_lore_icon"></use>
+                </svg>
+              </button>
+            </div>
+          </div>
+        </mat-tab>
+        <mat-tab label="Activity">
+          <div class="tt-topic-list">
+            <div class="tt-list-header">
+              <div class="tt-col-topic">Blogs</div>
+              <div class="tt-col-category">Category</div>
+              <div class="tt-col-value hide-mobile">Likes</div>
+              <div class="tt-col-value hide-mobile">Replies</div>
+              <div class="tt-col-value hide-mobile">Views</div>
+              <div class="tt-col-value">Activity</div>
+            </div>
+            <div class="tt-item">
+              <div class="tt-col-avatar">
+                <svg class="tt-icon">
+                  <use xlink:href="#icon-ava-d"></use>
+                </svg>
+              </div>
+              <div class="tt-col-description">
+                <h6 class="tt-title"><a href="#">
+                  <svg class="tt-icon">
+                    <use xlink:href="#icon-pinned"></use>
+                  </svg>
+                  Halloween Costume Contest 2018
+                </a></h6>
+                <div class="row align-items-center no-gutters">
+                  <div class="col-11">
+                    <ul class="tt-list-badge">
+                      <li class="show-mobile"><a href="#"><span class="tt-color01 tt-badge">politics</span></a></li>
+                      <li><a href="#"><span class="tt-badge">contests</span></a></li>
+                      <li><a href="#"><span class="tt-badge">authors</span></a></li>
+                    </ul>
+                  </div>
+                  <div class="col-1 ml-auto show-mobile">
+                    <div class="tt-value">1h</div>
+                  </div>
+                </div>
+              </div>
+              <div class="tt-col-category"><span class="tt-color01 tt-badge">politics</span></div>
+              <div class="tt-col-value hide-mobile">985</div>
+              <div class="tt-col-value tt-color-select  hide-mobile">502</div>
+              <div class="tt-col-value hide-mobile">15.1k</div>
+              <div class="tt-col-value hide-mobile">1h</div>
+            </div>
+
+          </div>
+        </mat-tab>
+        <mat-tab label="Setting">
+          <table style="margin: 0 auto;">
+            <div class="container-xl px-4 mt-4">
+              <hr class="mt-0 mb-4">
+              <div class="row">
+                <div class="col-xl-4">
+                  <!-- Profile picture card-->
+                  <div class="card mb-4 mb-xl-0">
+                    <div style="text-align: center" id="username" class="card-header">{{username}}</div>
+                    <div class="card-body text-center">
+                      <img class="img-account-profile rounded-circle mb-2" style="width: 150px ; height: 150px"
+                           [src]='imageSrc'>
+                      <div class="small font-italic text-muted mb-4">Avatar</div>
+                      <br/>
+                      <div class="container">
+                        <br>
+                        <form>
+                          <div class="form-group">
+                            <input type="file" (change)="showPreview($event)">
+                          </div>
+                        </form>
+                        <br>
+                      </div>
+                      <button class="btn btn-primary" type="button" (click)=" uploadImgUser()">Upload Avatar</button>
+                    </div>
+                  </div>
+
+                </div>
+                <div class="col-xl-8">
+                  <!-- Account details card-->
+                  <div class="card mb-4">
+                    <div style="text-align: center" class="card-header">Account Details</div>
+                    <div class="card-body">
+                      <form>
+                        <!-- Form Group (username)-->
+                        <div class="mb-3">
+                          <label class="small mb-1" for="inputUsername">Full Name</label>
+                          <input class="form-control" [formControl]="name" id="inputUsername" type="text"
+                                 placeholder="Enter your username">
+                        </div>
+                        <!-- Form Row-->
+                        <div class="row gx-3 mb-3">
+                          <!-- Form Group (first name)-->
+                          <div class="col-md-6">
+                            <label class="small mb-1" for="inputUseremail">Email</label>
+                            <input class="form-control" [formControl]="email" id="inputUseremail" type="email"
+                                   placeholder="Enter email" readonly>
+                            <mat-error *ngIf="email.hasError('email')">Email must have</mat-error>
+                          </div>
+                          <!-- Form Group (last name)-->
+                          <div class="col-md-6">
+                            <label class="small mb-1" for="inputBirthday">Birthday</label>
+                            <input class="form-control" [formControl]="birthday" [value]="birthday.value"
+                                   id="inputBirthday" type="date"
+                                   placeholder="15/05/1990">
+                          </div>
+                          <div class="col-md-6">
+                            <label class="small mb-1" for="inputRegisterDate ">RegisterDate </label>
+                            <input class="form-control" [formControl]="registerDate" value="{{registerDate.value}}"
+                                   id="inputRegisterDate "
+                                   type="text"
+                                   placeholder="0000/00/00" readonly>
+                          </div>
+
+                          <div class="form-group">
+                            <label for="exampleFormControlTextarea1">About</label>
+                            <textarea class="form-control" [formControl]="about" id="exampleFormControlTextarea1"
+                                      rows="5"></textarea>
+                          </div>
+                          <div style="margin: 20px; justify-content: flex-end;display: flex;padding-right:80px ;: ">
+                            <button class="btn btn-primary" type="button" (click)="updateUsers()">Save changes</button>
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </table>
+        </mat-tab>
+        <mat-tab label="Change Password">
+          <div class="col-md-6 offset-md-3" style="margin-top: 16px ">
+            <div class="card card-outline-secondary">
+              <div class="card-header">
+                <h3 class="mb-0">Change Password</h3>
+              </div>
+              <div class="card-body">
+
+                <form class="form row justify-content-center" [formGroup]="changePasswordGroup" #heroForm="ngForm"
+                      appPasswordMatchValidator>
+                  <mat-form-field class="full-width" appearance="fill">
+                    <mat-label>Enter old password</mat-label>
+                    <input matInput [type]=" hideOldPassword ? 'password' : 'text'" [formControl]="oldPassword"
+                           [errorStateMatcher]="matcherOldPassword">
+                    <button mat-icon-button matSuffix (click)=" hideOldPassword = ! hideOldPassword"
+                            [attr.aria-label]="'Hide password'"
+                            [attr.aria-pressed]=" hideOldPassword">
+                      <mat-icon>{{ hideOldPassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+                    </button>
+                    <mat-error *ngIf="oldPassword.hasError('required')">Password is required</mat-error>
+                    <mat-error *ngIf="oldPassword.hasError('maxlength')">Password must have {{maxNewPassword}} maximum
+                      characters
+                    </mat-error>
+                    <mat-error *ngIf="oldPassword.hasError('minlength')">Password must have at least {{minNewPassword}}
+                      characters
+                    </mat-error>
+                    <mat-error *ngIf="oldPassword.hasError('lowercase')&&!oldPassword.hasError('minlength')">Password
+                      must contain one lowercase letter.
+                    </mat-error>
+                    <mat-error *ngIf="oldPassword.hasError('uppercase')&&!oldPassword.hasError('minlength')">Password
+                      must contain one uppercase letter.
+                    </mat-error>
+                    <mat-error *ngIf="oldPassword.hasError('characters')&&!oldPassword.hasError('minlength')">Password
+                      must contain one characters letter.
+                    </mat-error>
+                    <mat-error *ngIf="oldPassword.hasError('digital')&&!oldPassword.hasError('minlength')">Password must
+                      contain one digital letter.
+                    </mat-error>
+                  </mat-form-field>
+                  <mat-form-field class="full-width" appearance="fill">
+                    <mat-label>New password</mat-label>
+                    <input matInput [type]=" hideNewPassword ? 'password' : 'text'" [formControl]="newPassword"
+                           [errorStateMatcher]="matcherPassword">
+                    <button mat-icon-button matSuffix (click)=" hideNewPassword = ! hideNewPassword"
+                            [attr.aria-label]="'Hide password'"
+                            [attr.aria-pressed]=" hideNewPassword">
+                      <mat-icon>{{ hideNewPassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+                    </button>
+                    <mat-error *ngIf="newPassword.hasError('required')">Password is required</mat-error>
+                    <mat-error *ngIf="newPassword.hasError('maxlength')">Password must have {{maxNewPassword}} maximum
+                      characters
+                    </mat-error>
+                    <mat-error *ngIf="newPassword.hasError('minlength')">Password must have at least {{minNewPassword}}
+                      characters
+                    </mat-error>
+                    <mat-error *ngIf="newPassword.hasError('lowercase')&&!newPassword.hasError('minlength')">Password
+                      must contain one lowercase letter.
+                    </mat-error>
+                    <mat-error *ngIf="newPassword.hasError('uppercase')&&!newPassword.hasError('minlength')">Password
+                      must contain one uppercase letter.
+                    </mat-error>
+                    <mat-error *ngIf="newPassword.hasError('characters')&&!newPassword.hasError('minlength')">Password
+                      must contain one characters letter.
+                    </mat-error>
+                    <mat-error *ngIf="newPassword.hasError('digital')&&!newPassword.hasError('minlength')">Password must
+                      contain one digital letter.
+                    </mat-error>
+                  </mat-form-field>
+                  <div *ngIf="changePasswordGroup.errors?.['changePasswordMismatch']"
+                       class="cross-validation-error-message alert" style="width: 100%"> Confirm-password does not match
+                    password
+                  </div>
+                  <mat-form-field class="full-width" appearance="fill">
+                    <mat-label>Enter your confirm password</mat-label>
+                    <input matInput [type]="hideConfirmPassword ? 'password' : 'text'"
+                           [formControl]="confirmNewPassword"
+                           [errorStateMatcher]="matcherRePassword">
+
+                    <button mat-icon-button matSuffix (click)="hideConfirmPassword = !hideConfirmPassword"
+                            [attr.aria-label]="'Hide password'"
+                            [attr.aria-pressed]="hideConfirmPassword">
+                      <mat-icon>{{hideConfirmPassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+                    </button>
+                    <mat-error *ngIf="confirmNewPassword.hasError('required')">Password is required</mat-error>
+                    <mat-error *ngIf="confirmNewPassword.hasError('minlength')">Password must have at
+                      least {{ minNewPassword}} characters
+                    </mat-error>
+
+                  </mat-form-field>
+                  <div *ngIf="changePasswordGroup.errors?.['changePasswordMismatch']"
+                       class="cross-validation-error-message alert" style="width: 100%">Confirm-password does not match
+                    password
+                  </div>
+                  <button class="button" mat-raised-button color="primary" style="margin-top: 10px"
+                          [disabled]="matcherOldPassword.isErrorState(oldPassword,heroForm)||matcherPassword.isErrorState(newPassword,heroForm)
+                  ||matcherRePassword.isErrorState(confirmNewPassword,heroForm)" (click)="changePasswordUpload()">Change
+                    Password
+                  </button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </mat-tab>
+      </mat-tab-group>
+    </div>
+  </div>
+</main>
+
+
+
+
+
+
+
+
+

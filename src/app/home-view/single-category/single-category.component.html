@@ -1,0 +1,76 @@
+<main id="tt-pageContent">
+  <div class="container">
+    <div class="tt-catSingle-title">
+      <div class="tt-innerwrapper tt-row">
+        <div class="tt-col-left">
+          <ul class="tt-list-badge">
+            <li><a (click)="displayPublicBlog()" style="text-decoration: none">
+              <span class="tt-color05 tt-badge" *ngIf="category.name=='Music'">music</span>
+              <span class="tt-color06 tt-badge" *ngIf="category.name=='Movie'">movie</span>
+              <span class="tt-color04 tt-badge" *ngIf="category.name=='Pet'">pet</span>
+              <span class="tt-color13 tt-badge" *ngIf="category.name=='Car'">car</span>
+              <span class="tt-color09 tt-badge" *ngIf="category.name=='Game'">game</span>
+              <span class="tt-color10 tt-badge" *ngIf="category.name=='Food'">food</span>
+            </a></li>
+          </ul>
+        </div>
+        <div class="ml-left tt-col-right">
+          <div class="tt-col-item">
+            <h2 class="tt-value">Blogs - {{category.countBlog}}</h2>
+          </div>
+          <div class="tt-col-item">
+            <a href="#" class="tt-btn-icon">
+              <i class="tt-icon">
+                <svg>
+                  <use xlink:href="#icon-favorite"></use>
+                </svg>
+              </i>
+            </a>
+          </div>
+          <div class="tt-col-item">
+            <div class="tt-search">
+              <button class="tt-search-toggle" data-toggle="modal" data-target="#modalAdvancedSearch">
+                <svg class="tt-icon">
+                  <use xlink:href="#icon-search"></use>
+                </svg>
+              </button>
+              <form class="search-wrapper">
+                <div class="search-form">
+                  <input type="text" class="tt-search__input" placeholder="Search in politics">
+                  <button class="tt-search__btn" type="submit">
+                    <svg class="tt-icon">
+                      <use xlink:href="#icon-search"></use>
+                    </svg>
+                  </button>
+                  <button class="tt-search__close">
+                    <svg class="tt-icon">
+                      <use xlink:href="#icon-cancel"></use>
+                    </svg>
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="tt-innerwrapper">
+        {{category.description}}
+      </div>
+      <div class="tt-innerwrapper">
+        <h6 class="tt-title">Similar TAGS</h6>
+        <ul class="tt-list-badge">
+          <li><a  class="tt-btn-icon" (click)="displayPublicBlog()">
+            <span class="tt-badge">#All</span></a>
+          </li>
+          <li *ngFor="let element of category.tagDTO">
+            <a (click)="displayBlogByTag(element.id)" class="tt-btn-icon">
+              <span class="tt-badge">{{element.name}}</span></a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="tt-topic-list">
+      <app-blog-category [blogOfCategory]="blogOfCategory"></app-blog-category>
+    </div>
+  </div>
+</main>

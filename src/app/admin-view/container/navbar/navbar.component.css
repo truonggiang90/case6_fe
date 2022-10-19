@@ -1,0 +1,50 @@
+.sidenav-container {
+  height: 100%;
+}
+.spacer {
+  flex: 1 1 auto;
+}
+.sidenav {
+  width: 320px;
+  border-right: cadetblue 0.5px solid;
+  z-index: 0 ;
+}
+
+.sidenav .mat-toolbar {
+  background: inherit;
+
+}
+
+.mat-toolbar {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  height: 101px;
+  background: #f2f1ec;
+}
+
+.toolbar-header{
+  border-bottom: cadetblue 0.5px solid;
+}
+.example-container .mat-form-field + .mat-form-field {
+  margin-left: 8px;
+}
+.sidebar-brand{
+  height: 100px;
+  width: 320px;
+  background: beige;
+}
+mat-icon {
+  margin-right: 50px;
+}
+.icon{
+  height: 30px;
+  width: 30px;
+  margin-right: 50px;
+}
+a{
+  font-size:17px ;
+}
+mat-sidenav-content{
+  background: #6662;
+}

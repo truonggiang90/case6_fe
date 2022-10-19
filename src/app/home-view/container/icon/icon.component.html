@@ -1,0 +1,11 @@
+<div class="post-favourite" style="display: flex ;justify-content: center">
+  <a *ngIf="icon=='favorite';else comment" style="display: flex">
+    <mat-icon aria-hidden="true" *ngIf="liked" matTooltip="{{tooltip}}" (click)="unLikeBlog()">{{icon}}</mat-icon>
+    <mat-icon aria-hidden="true" *ngIf="!liked" matTooltip="{{tooltip}}" (click)="likeBlog()">{{iconReplace}}</mat-icon>
+    <span>{{value}}</span></a>
+  <ng-template #comment>
+    <a routerLink="/home/blog/{{idBlog}}" style="display: flex">
+      <mat-icon aria-hidden="true">{{icon}}</mat-icon>
+      <span style="font-size: 15px">{{valueComment}}</span></a>
+  </ng-template>
+</div>

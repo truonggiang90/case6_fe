@@ -1,0 +1,46 @@
+<div class="container-fluid">
+  <div class="row justify-content-center">
+    <mat-card class="card">
+        <div class=" row login-logo ">
+            <img src="./assets/icon/Team2.png" alt="admin">
+          <mat-card-title class="text-center">Login Page</mat-card-title>
+        </div>
+      <div class="login-form">
+        <form class="form row justify-content-center" [formGroup]="signInGroup" #formLogin="ngForm">
+          <mat-form-field  class="full-width" appearance="fill">
+            <mat-label>Username</mat-label>
+            <input type="text" matInput [formControl]="username" [errorStateMatcher]="matcherUsername"
+                   placeholder="Ex.Darkhunter" >
+            <mat-hint>Errors appear instantly!</mat-hint>
+            <mat-error *ngIf="username.hasError('minlength') && !username.hasError('required')">
+              Username must have at least {{minLengthUserName}} characters
+            </mat-error>
+            <mat-error *ngIf="username.hasError('required')">
+              Username is <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field class="full-width" appearance="fill">
+            <mat-label>Enter your password</mat-label>
+            <input matInput [type]="hide ? 'password' : 'text'" [formControl]="password"
+                   [errorStateMatcher]="matcherPassword" >
+
+            <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+                    [attr.aria-pressed]="hide" >
+              <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+            <mat-error *ngIf="password.hasError('required')">Password is <strong> required </strong></mat-error>
+            <mat-error *ngIf="password.hasError('minlength')">Password must have at least {{minLength}} characters</mat-error>
+          </mat-form-field>
+          <button class="button" mat-raised-button color="primary" (click)="login()"
+                  [disabled]="matcherUsername.isErrorState(username,formLogin)||matcherPassword.isErrorState(password,formLogin)">Sign In</button>
+        </form>
+        <div class="register-link">
+          <p>
+            Don't you have account?
+            <a href="/register">Sign Up Here</a>
+          </p>
+        </div>
+      </div>
+    </mat-card>
+  </div>
+</div>

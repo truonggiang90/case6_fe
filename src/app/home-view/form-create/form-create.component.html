@@ -1,0 +1,130 @@
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1"
+/>
+<main id="tt-pageContent">
+  <div class="container">
+    <div class="tt-wrapper-inner">
+      <form class="form-default form-create-topic" [formGroup]="formCreateBlog" #createBlogForm="ngForm"
+            appPasswordMatchValidator>
+        <h1 class="tt-title-border">
+          Create New Blog
+        </h1>
+        <div class="form-group" style="width: 50%;float: right">
+          <div class="form-group">
+            <h5 for="inputTopicTitle">Blog Title</h5>
+            <div class="tt-value-wrapper">
+              <input type="text" name="name" matInput class="form-control" id="inputTopicTitle"
+                     placeholder="Subject of your title" [formControl]="title" [errorStateMatcher]="titleMatcher">
+              <mat-error *ngIf="title.hasError('required')">Title required</mat-error>
+              <mat-error *ngIf="title.hasError('maxlength')">Description max length is {{maxTittle}}</mat-error>
+              <mat-error *ngIf="title.hasError('minlength')">Description min length is {{minTittle}}</mat-error>
+              <span class="tt-value-input"></span>
+            </div>
+            <div class="tt-note"></div>
+          </div>
+          <div class="form-group">
+            <h5>Blog Description</h5>
+
+            <div class="tt-value-wrapper">
+              <textarea name="name" type="text" matInput class="form-control"
+                        placeholder="Subject of your description" [formControl]="description"
+                        [errorStateMatcher]="descriptionMatcher" style="height: 80px"></textarea>
+              <mat-error *ngIf="description.hasError('required')">Description required</mat-error>
+              <mat-error *ngIf="description.hasError('maxlength')">Description max length
+                is{{maxDescription}}</mat-error>
+              <mat-error *ngIf="description.hasError('minlength')">Description min length
+                is{{minDescription}}</mat-error>
+              <span class="tt-value-input"></span>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div style="height: 200px">
+            <label>Blog Picture</label>
+            <div class="custom-file">
+              <input type="file" id="file" #userPhoto (change)="showPreview($event)"
+                     name="image" autocomplete="off" class="custom-file-input">
+              <label for="file" class="custom-file-label">Choose File</label>
+            </div>
+            <img src="{{this.pictureLink}}" width="20%" height="175px" style="margin-left: 20px" alt="Picture">
+          </div>
+          <div class="pt-editor" style="margin-top: 75px">
+            <h6 class="pt-title">Blog Body</h6>
+
+            <div class="form-group">
+              <quill-editor [styles]="editorStyle" [formControl]="content" placeholder="Enter Text">
+
+              </quill-editor>
+              <mat-error *ngIf="content.hasError('required')">Content required</mat-error>
+            </div>
+            <div class="row">
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label for="inputTopicTitle">Category</label>
+                  <select required class="form-control" [formControl]="categoryId" id="category"   (change)="onChangSelectCategory($event)">
+                    <option value="" disabled selected> Select Category</option>
+                    <option *ngFor="let c of categories" value="{{c.id}}">{{c.name}}</option>
+                  </select>
+                  <mat-error *ngIf="categoryId.hasError('required')">Category required</mat-error>
+                </div>
+              </div>
+              <div class="col-md-8" >
+                <div class="form-group">
+                  <label for="inputTopicTags">Tag</label>
+                  <mat-chip-list #chipList aria-label="Fruit selection" style="width: 300px">
+                    <mat-chip
+                      *ngFor="let element of tagString"
+                      (removed)="remove(element)">
+                      {{element}}
+                      <button matChipRemove>
+                        <mat-icon>cancel</mat-icon>
+                      </button>
+                    </mat-chip>
+                    <input class="form-control" id="inputTopicTags"
+                           placeholder="New fruit..."
+                           #tagInput
+                           [formControl]="tag"
+                           [matAutocomplete]="auto"
+                           [matChipInputFor]="chipList"
+                           [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                           (matChipInputTokenEnd)="add($event)">
+                  </mat-chip-list>
+                  <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+                    <mat-option *ngFor="let filterTag of filteredTag | async" [value]="filterTag">
+                      {{filterTag}}
+                    </mat-option>
+                  </mat-autocomplete>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-auto ml-md-auto" style="    margin-bottom: 20px;">
+                <button
+                  [disabled]="
+                  titleMatcher.isErrorState(title,createBlogForm)||
+                  contentMatcher.isErrorState(content,createBlogForm)||
+                  descriptionMatcher.isErrorState(description,createBlogForm)"
+                  style="margin-top: 16px" class="btn btn-secondary btn-width-lg" *ngIf="!isUpdate; else update"
+                  (click)="createBlog()">Create
+                  Blog
+                </button>
+                <ng-template #update>
+                  <button
+                    [disabled]="
+                  titleMatcher.isErrorState(title,createBlogForm)||
+                  contentMatcher.isErrorState(content,createBlogForm)||
+                  descriptionMatcher.isErrorState(description,createBlogForm)"
+                    style="margin-top: 16px" class="btn btn-secondary btn-width-lg" (click)="updateBlog()">Update Blog
+                  </button>
+                </ng-template>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</main>

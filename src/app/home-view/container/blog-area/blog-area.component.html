@@ -1,0 +1,147 @@
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-12 col-lg-8">
+      <div class="row">
+        <div class="col-12">
+          <div class="single-post wow fadeInUp" data-wow-delay=".2s">
+            <!-- Post Thumb -->
+            <div class="post-thumb">
+              <img src="{{oneBlog[0].picture}}" alt="">
+            </div>
+            <!-- Post Content -->
+            <div class="post-content">
+              <div class="post-meta d-flex">
+                <div class="post-author-date-area d-flex">
+                  <!-- Post Author -->
+                  <div class="post-author">
+                    <a href="#">{{oneBlog[0].username}}</a>
+                  </div>
+                  <!-- Post Date -->
+                  <div class="post-date">
+                    <a href="#">{{this.pipe.transform(oneBlog[0].createAt, "MMM d, y")}}</a>
+                  </div>
+                </div>
+                <!-- Post Comment & Share Area -->
+                <div class="post-comment-share-area d-flex">
+                  <app-icon icon="favorite" iconReplace="favorite_border" value="{{oneBlog[0].countLike}}" idBlog="{{oneBlogId}}"></app-icon>
+                  <app-icon iconReplace="comment" icon="comment" valueComment="{{oneBlog[0].countComment}}" idBlog="{{oneBlogId}}"></app-icon>
+                </div>
+              </div>
+              <a routerLink="/home/blog/{{oneBlog[0].id}}">
+                <h2 class="post-headline">{{oneBlog[0].title}}</h2>
+              </a>
+              <p>{{oneBlog[0].describes}}</p>
+              <a routerLink="/home/blog/{{oneBlog[0].id}}" class="read-more">Continue Reading..</a>
+            </div>
+          </div>
+        </div>
+        <mat-divider></mat-divider>
+        <h3 style="margin: 16px">Recently</h3>
+        <div class="col-12 col-md-4" *ngFor="let blogRecently of blogsRecently">
+          <div class="single-post wow fadeInUp" data-wow-delay=".2s">
+            <!-- Post Thumb -->
+            <div class="post-thumb">
+              <img src="{{blogRecently.picture}}" alt="" style="height: 240px ;border-radius: 10px;width: 240px">
+            </div>
+            <!-- Post Content -->
+            <div class="post-content">
+              <div class="post-meta d-flex">
+                <div class="post-author-date-area d-flex">
+                  <!-- Post Author -->
+                  <div class="post-author">
+                    <a href="#">{{blogRecently.username}}</a>
+                  </div>
+                  <!-- Post Date -->
+                  <div class="post-date">
+                    <a href="#">{{this.pipe.transform(blogRecently.createAt, "MMM d, y")}}</a>
+                  </div>
+                </div>
+                <!-- Post Comment & Share Area -->
+                <div class="post-comment-share-area d-flex">
+                  <app-icon icon="favorite" iconReplace="favorite_border" value="{{blogRecently.countLike}}" idBlog="{{blogRecently.id}}"></app-icon>
+                  <app-icon iconReplace="comment" icon="comment" valueComment="{{blogRecently.countComment}}" idBlog="{{blogRecently.id}}"></app-icon>
+                </div>
+              </div>
+              <a routerLink="/home/blog/{{blogRecently.id}}" matTooltip="{{blogRecently.title}}">
+                <h4 class="post-headline content" style="width: 240px">{{blogRecently.title}}</h4>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 row" *ngFor="let element of blogsPerCategory">
+          <mat-divider></mat-divider>
+          <div class="widget-title text-center" >
+            <h3>{{element.category}}</h3>
+          </div>
+          <div class="col-12 col-md-4" *ngFor="let blogs of element.blogs">
+            <div class="single-post wow fadeInUp" data-wow-delay=".2s">
+              <!-- Post Thumb -->
+              <div class="post-thumb">
+                <img src="{{blogs.picture}}" alt="" style="height: 240px ;border-radius: 10px;width: 240px">
+              </div>
+              <!-- Post Content -->
+              <div class="post-content">
+                <div class="post-meta d-flex">
+                  <div class="post-author-date-area d-flex">
+                    <!-- Post Author -->
+                    <div class="post-author">
+                      <a href="#">{{blogs.username}}</a>
+                    </div>
+                    <!-- Post Date -->
+                    <div class="post-date">
+                      <a href="#">{{this.pipe.transform(blogs.createAt, "MMM d, y")}}</a>
+                    </div>
+                  </div>
+                  <!-- Post Comment & Share Area -->
+                  <div class="post-comment-share-area d-flex">
+                    <app-icon icon="favorite" iconReplace="favorite_border" value="{{blogs.countLike}}" idBlog="{{blogs.id}}"></app-icon>
+                    <app-icon iconReplace="comment" icon="comment" valueComment="{{blogs.countComment}}" idBlog="{{blogs.id}}"></app-icon>
+                  </div>
+                </div>
+                <a routerLink="/home/blog/{{blogs.id}}" matTooltip="{{blogs.title}}">
+                  <h4 class="post-headline content" style="width: 200px">{{blogs.title}}</h4>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 col-sm-8 col-md-6 col-lg-4" style="background: none ">
+      <div class="blog-sidebar mt-5 mt-lg-0">
+
+        <!-- Single Widget Area -->
+        <div class="single-widget-area popular-post-widget" style="padding-left: 30px;padding-right: 0">
+          <div class="widget-title text-center">
+            <h6>Populer Post</h6>
+          </div>
+          <!-- Single Popular Post -->
+          <div class="single-populer-post d-flex" *ngFor="let element of blogs">
+            <img src="{{element.picture}}" alt="" style="height: 160px">
+            <div class="post-content">
+              <a href="#">
+                <h6>{{element.title}}</h6>
+              </a>
+              <p>{{pipe.transform(element.createAt, "MMMM d, y")}}</p>
+            </div>
+          </div>
+        </div>
+        <!-- Single Widget Area -->
+        <div class="single-widget-area newsletter-widget">
+          <div class="widget-title text-center">
+            <h6>Newsletter</h6>
+          </div>
+          <p>Subscribe our newsletter gor get notification about new updates, information discount, etc.</p>
+          <div class="newsletter-form">
+            <form action="#" method="post">
+              <input type="email" name="newsletter-email" id="email" placeholder="Your email">
+              <button type="submit">
+                <mat-icon fontIcon="send" aria-hidden="true"></mat-icon>
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

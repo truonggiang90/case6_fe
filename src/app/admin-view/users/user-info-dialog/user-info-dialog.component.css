@@ -1,0 +1,26 @@
+.example-card {
+  max-width: 1000px;
+}
+
+img{
+  border: 2px solid #03BFCB;
+  border-radius: 50%;
+  padding: 7px;
+  width: 100px;
+  height: 100px;
+}
+mat-card-header{
+  flex-direction: column;
+  align-items: center;
+}
+table{
+  margin: 48px;
+}
+th{
+  padding-right: 15px;
+  padding-bottom: 10px;
+}
+td{
+  padding-right: 40px;
+  padding-bottom: 10px;
+}

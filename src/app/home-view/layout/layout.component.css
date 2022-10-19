@@ -1,0 +1,10 @@
+.avatar{
+  height: 48px;
+  width: 48px;
+  border-radius: 100%;
+}
+.icon{
+  height: 24px;
+  width: 24px;
+  margin-right: 21px;
+}

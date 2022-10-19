@@ -1,0 +1,67 @@
+.form {
+  min-width: 150px;
+  max-width: 600px;
+  width: 100%;
+  margin: 0;
+}
+
+full-width {
+  width: 100%;
+}
+
+.mat-form-field {
+  margin-top: 16px;
+  margin-bottom: 16px;
+  height: 88px;
+}
+
+.example-right-align {
+  text-align: right;
+}
+
+input.example-right-align::-webkit-outer-spin-button,
+input.example-right-align::-webkit-inner-spin-button {
+  display: none;
+}
+input{
+height: 32px;
+}
+.card {
+  border-radius: 16px;
+  margin: 100px;
+  max-width: 600px;
+  padding: 40px;
+}
+
+img {
+  padding: 0;
+  height: 320px;
+  width: 320px;
+  margin-bottom:  24px;
+
+}
+
+.container-fluid {
+  background: #e5e5e5;
+}
+
+.login-logo {
+  justify-content: center;
+}
+
+.register-link {
+  justify-content: center;
+  margin: 48px;
+  font-size: 16px;
+}
+
+
+.mat-card-title{
+font-family: "Bauhaus 93";
+}
+.mat-raised-button {
+  width: 480px;
+  height: 60px;
+  font-size: 24px;
+  border-radius: 30px;
+}

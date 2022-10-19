@@ -1,0 +1,125 @@
+<div class="grid-container" >
+  <mat-toolbar class="toolbar">
+    <mat-form-field appearance="legacy">
+      <mat-label>Choose an option</mat-label>
+      <mat-select [(value)]="selected" (valueChange)="applySelect()">
+        <mat-option value="all">All</mat-option>
+        <mat-option value="banUser">Ban User</mat-option>
+        <mat-option value="activeUser">Active User</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <span class="spacer"></span>
+    <button mat-flat-button color="warn" class="button-banGroup" [disabled]="selection.isEmpty()" (click)="banGroupUser()">
+        <img src="./assets/icon/cancel.png">
+        <span class="spacer"></span> Ban Group
+      </button>
+    <button mat-flat-button color="primary" class="button-banGroup"  [disabled]="selection.isEmpty()" (click)="activeGroupUser()">
+      <img src="./assets/icon/add-contact.png">
+      <span class="spacer"></span> Active Group
+    </button>
+  </mat-toolbar>
+  <span class="spacer-col"></span>
+
+  <div class="mat-elevation-z8">
+    <mat-form-field appearance="standard">
+      <mat-label>Filter</mat-label>
+      <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium" #input>
+    </mat-form-field>
+    <table mat-table class="full-width-table" matSort aria-label="Elements">
+      <!-- Checkbox Column -->
+      <ng-container matColumnDef="select">
+        <th mat-header-cell *matHeaderCellDef>
+          <mat-checkbox (change)="$event ? toggleAllRows() : null"
+                        [checked]="selection.hasValue() && isAllSelected()"
+                        [indeterminate]="selection.hasValue() && !isAllSelected()"
+                        [aria-label]="checkboxLabel()">
+          </mat-checkbox>
+        </th>
+        <td mat-cell *matCellDef="let row">
+          <mat-checkbox (click)="$event.stopPropagation()"
+                        (change)="$event ? selection.toggle(row) : null"
+                        [checked]="selection.isSelected(row)"
+                        [aria-label]="checkboxLabel(row)">
+          </mat-checkbox>
+        </td>
+      </ng-container>
+      <!-- Id Column -->
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Id</th>
+        <td mat-cell *matCellDef="let row">{{dataSource.data.indexOf(row) + 1}}</td>
+      </ng-container>
+      <ng-container matColumnDef="avatar">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Avatar</th>
+        <td mat-cell *matCellDef="let row">
+          <img class="avatarTable" src='{{row.avatar}}'>
+        </td>
+      </ng-container>
+      <!-- Name Column -->
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>
+        <td mat-cell *matCellDef="let row">{{row.name}}</td>
+      </ng-container>
+      <ng-container matColumnDef="email">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header="email">Email</th>
+        <td mat-cell *matCellDef="let row">{{row.email}}</td>
+      </ng-container>
+      <ng-container matColumnDef="phoneNumber">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>About</th>
+        <td mat-cell *matCellDef="let row">{{row.about}}</td>
+      </ng-container>
+      <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
+        <td mat-cell *matCellDef="let row" >
+          <mat-icon *ngIf="row.userStatus.status=='ONLINE'" style="color: blue" matTooltip="Online" matTooltipPosition="after">circle</mat-icon>
+          <mat-icon *ngIf="row.userStatus.status=='OFFLINE'" style="color: red" matTooltip="Offline"  matTooltipPosition="after">circle</mat-icon>
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="role">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Role</th>
+        <td mat-cell *matCellDef="let row">
+          <span *ngIf="checkRole(row.user.roles[0].name); else roleElse">Admin</span>
+          <ng-template #roleElse>User</ng-template>
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="action" stickyEnd>
+        <th mat-header-cell *matHeaderCellDef aria-label="row actions">&nbsp;</th>
+        <td mat-cell *matCellDef="let element" style="align-items: center">
+          <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+            <mat-icon matTooltip="Edit Blog" matTooltipPosition="after" style="color: #1cbbb4" >edit</mat-icon>
+          </button>
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item [matMenuTriggerFor]="Status">
+              <mat-icon>flaky</mat-icon>
+              <span>Edit audience</span>
+            </button>
+            <button mat-menu-item (click)="openUserInfo(element)">
+              <mat-icon>find_in_page</mat-icon>
+              <span>Info User</span>
+            </button>
+          </mat-menu>
+          <mat-menu #Status="matMenu">
+            <button mat-menu-item  [disabled]="!element.userStatus.verify"  (click)="openBanUser(element)">
+              <mat-icon>lock</mat-icon>
+              <span>Ban</span>
+            </button>
+            <button mat-menu-item  [disabled]="element.userStatus.verify" (click)="openActiveUser(element)">
+              <mat-icon>groups</mat-icon>
+              <span>Active</span>
+            </button>
+          </mat-menu>
+        </td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns; "
+          [ngClass]="{ verify: !row.userStatus.verify}"></tr>
+    </table>
+
+    <mat-paginator #paginator
+                   [length]="dataSource?.data?.length"
+                   [pageIndex]="0"
+                   [pageSize]="10"
+                   [pageSizeOptions]="[5, 10, 20]"
+                   aria-label="Select page">
+    </mat-paginator>
+  </div>
+</div>
